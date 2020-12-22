@@ -123,5 +123,5 @@ if gamewin:
 if gamelose:
     print("Wow u lost lulz")
     exit
-# Idiot user use case
+
 
