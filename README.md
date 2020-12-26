@@ -4,8 +4,13 @@ Trying 2 code a working text (yet graphical) version of trips traps trull...
 26/12 note: I finally got it working! The biggest problems were created by my lack of logical workflow and indentation, i.e. I was telling the program to execute/call a function or variable that I hadn't yet defined. 
 # Tally:
 156 lines of code
+
 6 functions 
+
 18 variables
+
 5 days of coding
+
 6+ hours
+
 MY FIRST PROPER PROGRAM!!!!
