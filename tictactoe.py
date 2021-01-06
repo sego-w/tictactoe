@@ -19,9 +19,11 @@ def initial_state():
     global row3
     global user_sym
     global opposite
+    global list_rows
     row1 = [' ',' ',' ']
     row2 = [' ',' ',' ']
     row3 = [' ',' ',' ']
+    list_rows = [row1,row2,row3]
     repeat_game = 'Irrelevant string'
     gamewin = False
     gamelose = False
@@ -45,29 +47,7 @@ def __main__():
     while isinstance(pick_pos,int) == False: 
         pick_pos = int(input(f"Which place would you like to place your {user_sym}? "))
     # Editing the row/column
-    if pick_row == 1:
-        if pick_pos == 1:
-            row1[0] = user_sym
-        elif pick_pos == 2:
-            row1[1] = user_sym
-        elif pick_pos == 3:
-            row1[2] = user_sym
-    # Second row
-    if pick_row == 2:
-        if pick_pos == 1:
-            row2[0] = user_sym
-        elif pick_pos == 2:
-            row2[1] = user_sym
-        elif pick_pos == 3:
-            row2[2] = user_sym
-    # Third row
-    if pick_row == 3:
-        if pick_pos == 1:
-            row3[0] = user_sym
-        elif pick_pos == 2:
-            row3[1] = user_sym
-        elif pick_pos == 3:
-            row3[2] = user_sym
+    list_rows[pick_row-1][pick_pos-1] = user_sym
     # Display result
     display(row1,row2,row3)
 __main__()
@@ -76,13 +56,17 @@ __main__()
 def gameovercheck():
     global gamewin
     global gamelose
-    if row1[0] == row1[1] == row1[2] == user_sym or row2[0] == row2[1] == row2[2] == user_sym or row3[0] == row3[1] == row3[2] == user_sym:
+    if list_rows[0][0:3] == user_sym or list_rows[1][0:3] == user_sym or list_rows[2][0:3] == user_sym:
         gamewin = True
-    elif row1[0] == row1[1] == row1[2] == opposite or row2[0] == row2[1] == row2[2] == opposite or row3[0] == row3[1] == row3[2] == opposite:
+    elif list_rows[0][0:3] == opposite or list_rows[1][0:3] == opposite or list_rows[2][0:3] == opposite:
         gamelose = True
-    elif row1[0] == row2[0] == row3[0] == user_sym or row1[1] == row2[1] == row3[1] == user_sym or row1[2] == row2[2] == row3[2] == user_sym:
+    elif list_rows[0:3][0] == user_sym or list_rows[0:3][1] == user_sym or list_rows[0:3][2] == user_sym:
         gamewin = True
-    elif row1[0] == row2[0] == row3[0] == opposite or row1[1] == row2[1] == row3[1] == opposite or row1[2] == row2[2] == row3[2] == opposite:
+    elif list_rows[0:3][0] == opposite or list_rows[0:3][1] == opposite or list_rows[0:3][2] == opposite:
+        gamelose = True
+    elif row1[0] == row2[1] == row3[2] == user_sym or row1[2] == row2[1] == row3[0] == user_sym:
+        gamewin = True
+    elif row1[0] == row2[1] == row3[2] == opposite or row1[2] == row2[1] == row3[0] == opposite:
         gamelose = True
     if gamewin == True:
         print("Congrats! You won!")
@@ -94,47 +78,26 @@ gameovercheck()
 # Placing an X or O randomly
 
 def robot_hax():
+    global bot_row
+    global bot_pos
     sleep(1)
     print("Alright! It's time for your opponent to make their move!")
     sleep(1)
     bot_row = randint(1,3)
     bot_pos = randint(1,3)
-    if bot_row == 1:
-        while row1[bot_pos-1] != ' ':
-            bot_pos = randint(1,3)
-    elif bot_row == 2:
-        while row2[bot_pos-1] != ' ':
-            bot_pos = randint(1,3)
-    elif bot_row == 3:
-        while row3[bot_pos-1] != ' ':
-            bot_pos = randint(1,3)
-    # Row 1
-    if bot_row == 1:
-        if row1[bot_pos-1] == ' ':
-            if user_sym == 'O':
-              row1[bot_pos-1] = 'X'
-            elif user_sym == 'X':
-              row1[bot_pos-1] = 'O'
-    # Row 2
-    if bot_row == 2:
-        if row2[bot_pos-1] == ' ':
-            if user_sym == 'O':
-              row2[bot_pos-1] = 'X'
-            elif user_sym == 'X':
-              row2[bot_pos-1] = 'O'
-    # Row 3
-    if bot_row == 3:
-        if row3[bot_pos-1] == ' ':
-            if user_sym == 'O':
-              row3[bot_pos-1] = 'X'
-            elif user_sym == 'X':
-              row3[bot_pos-1] = 'O'
+    while list_rows[bot_row-1][bot_pos-1] != ' ':
+        bot_row = randint(1,3)
+        bot_pos = randint(1,3)
+    list_rows[bot_row-1][bot_pos-1] = opposite
     display(row1,row2,row3)
     
 
+    
+
 if gamewin == False and gamelose == False:
-    robot_hax() 
     gameovercheck()
+    robot_hax() 
+
 
 def whole_program():
     while gamewin == False or gamelose == False:
@@ -154,6 +117,3 @@ def whole_program():
         sleep(1)
     
 whole_program()
-
-
-
