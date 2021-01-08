@@ -43,6 +43,7 @@ def __main__():
     pick_row = "Not a digit"
     pick_pos = "Also not a digit"
     while isinstance(pick_row,int) == False:
+        # Alternatively: while pick_row != int(pick_row):
         pick_row = int(input("Pick your row! "))
     while isinstance(pick_pos,int) == False: 
         pick_pos = int(input(f"Which place would you like to place your {user_sym}? "))
