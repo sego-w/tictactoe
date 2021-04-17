@@ -1,4 +1,4 @@
-### IMPORTANT! SINCE I AM LAZY YOU WILL NOT WIN/LOSE IN THE CASE OF A DIAGONAL ###
+
 from time import sleep
 from random import randint
 import sys
@@ -96,11 +96,14 @@ def robot_hax():
     
 
 if gamewin == False and gamelose == False:
+    
     gameovercheck()
     robot_hax() 
 
 
 def whole_program():
+    global gamewin
+    global gamelose
     while gamewin == False or gamelose == False:
         __main__()
         gameovercheck()
